@@ -307,12 +307,11 @@ func (bl *BeeLogger) Close() {
 // it can be used in many scenario, such as nsq, mgo, etc.
 // for more details, see golang src code log/log.go--->>>Logger
 func (bl *BeeLogger) Output(calldepth int, s string) error {
-	defaultOutputLvl := LevelDebug
-	if defaultOutputLvl > bl.level {
+	if LevelDebug > bl.level {
 		return nil
 	}
 	lm := new(logMsg)
-	lm.level = defaultOutputLvl
+	lm.level = LevelDebug
 
 	_, file, line, ok := runtime.Caller(calldepth)
 	if _, filename := path.Split(file); filename == "log.go" && (line == 97 || line == 83) {
